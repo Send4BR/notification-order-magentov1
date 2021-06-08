@@ -39,7 +39,7 @@ class OrderNotification
     public function getHeader()
     {
         $ecommerceUIID = Mage::getStoreConfig('configs/webhook/ecommerce_uuid');
-        var_dump($ecommerceUIID);
+
         $headers = ['Content-Type: application/json'];
 
         if (!empty($ecommerceUIID)) {
