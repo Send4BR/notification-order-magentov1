@@ -1,0 +1,20 @@
+{
+    "name": "tiagobruno/notification-order-magento",
+    "description": "Notification order magento created or updated",
+    "version": "1.0.0",
+    "authors": [
+        {
+            "name": "Tiago Bruno",
+            "email": "tiago.bruno@after.sale"
+        }
+    ],
+    "require": {
+        "magento-hackathon/magento-composer-installer": "*"
+    },
+    "require-dev": {
+        "ecomdev/ecomdev_phpunit": "*"
+    },
+    "extra": {
+        "magento-root-dir": "code/Aftersale"
+    }
+}
