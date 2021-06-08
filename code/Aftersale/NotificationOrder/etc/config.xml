@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<config>
+    <modules>
+        <Aftersale_NotificationOrder>
+            <version>0.0.1</version>
+        </Aftersale_NotificationOrder>
+    </modules>
+    <global>
+        <helpers>
+            <notificationOrder>
+                <class>Aftersale_NotificationOrder_Helper</class>
+            </notificationOrder>
+        </helpers>
+        <models>
+            <aftersale_notificationOrder>
+                <class>Aftersale_NotificationOrder_Model</class>
+            </aftersale_notificationOrder>
+        </models>
+        <events>
+            <sales_order_place_after>
+                <observers>
+                    <aftersale_notificationOrder>
+                        <class>aftersale_notificationOrder/orderObserver</class>
+                        <method>orderCreateOrUpdate</method>
+                        <type>singleton</type>
+                    </aftersale_notificationOrder>
+                </observers>
+            </sales_order_place_after>
+        </events>
+    </global>
+</config>
