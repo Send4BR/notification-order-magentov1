@@ -1,29 +1,31 @@
 <?php
 
-require __DIR__ . "/WebhookServer.php";
 require __DIR__ . "/SendEmail.php";
 
 
 class OrderNotification
 {
+    private $webhookServer;
+
+    public function __construct($webhookServer)
+    {
+        $this->webhookServer = $webhookServer;
+    }
+
     public function send($data)
     {
-        try {
+        $url = Mage::getStoreConfig('configs/webhook/url_webhook');
 
-            $url = Mage::getStoreConfig('configs/webhook/url_webhook');
-
-            if (empty($url)) {
-                throw new Exception('Url Webhook not found');
-            }
-
-            $headers = $this->getHeader();
-            $payload = $this->createPayload($data);
-            $webhookServer = new WebhookServer($payload, $headers, $url);
-            $webhookServer->make();
-        } catch (\Exception $exception) {
-            Mage::log($exception->getMessage(), null, 'webhookError.log');
-            $this->dispatchEmail($exception->getMessage());
+        if (empty($url)) {
+            throw new Exception('Url Webhook not found');
         }
+
+        $headers = $this->getHeader();
+        $payload = $this->createPayload($data);
+
+        $this->webhookServer->make($payload, $headers, $url);
+
+        return true;
     }
 
     public function dispatchEmail($message)

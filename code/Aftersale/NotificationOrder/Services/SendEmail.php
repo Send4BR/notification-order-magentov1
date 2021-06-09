@@ -4,6 +4,7 @@
 class SendEmail
 {
     private $message;
+
     public function __construct($message)
     {
         $this->message = $message;
@@ -11,23 +12,16 @@ class SendEmail
 
     public function make()
     {
+        $emailTo = Mage::getStoreConfig('configs/webhook/email');
+        $body = $this->getBody();
 
-        try {
-
-            $emailTo = Mage::getStoreConfig('configs/webhook/email');
-            $body = $this->getBody();
-
-            $mail = Mage::getModel('core/email');
-            $mail->setToName('Ti');
-            $mail->setToEmail($emailTo);
-            $mail->setBody($body);
-            $mail->setSubject('Informativo referente ao seu webhook');
-            $mail->setType('html');
-            $mail->send();
-
-        } catch (Exception $exception) {
-            Mage::log($exception->getMessage(), null, 'webhookError.log');
-        }
+        $mail = Mage::getModel('core/email');
+        $mail->setToName('Ti');
+        $mail->setToEmail($emailTo);
+        $mail->setBody($body);
+        $mail->setSubject('Informativo referente ao seu webhook');
+        $mail->setType('html');
+        $mail->send();
     }
 
     public function getBody()

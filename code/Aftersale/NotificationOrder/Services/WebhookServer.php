@@ -3,26 +3,17 @@
 
 class WebhookServer
 {
-    private $data;
-    private $headers;
-    private $url;
-    public function __construct($data, $headers, $url)
-    {
-       $this->data = $data;
-       $this->headers = $headers;
-       $this->url = $url;
-    }
 
-    public function make()
+    public function make($data, $headers, $url)
     {
-        $handle = curl_init($this->url);
+        $handle = curl_init($url);
 
-        $encodeData = json_encode($this->data);
+        $encodeData = json_encode($data);
 
         curl_setopt($handle, CURLOPT_POST, 1);
         curl_setopt($handle, CURLOPT_POSTFIELDS, $encodeData);
         curl_setopt($handle, CURLOPT_RETURNTRANSFER, true);
-        curl_setopt($handle, CURLOPT_HTTPHEADER, $this->headers);
+        curl_setopt($handle, CURLOPT_HTTPHEADER, $headers);
 
         $result = json_decode(curl_exec($handle));
 
