@@ -9,12 +9,13 @@
         }
     ],
     "require": {
-        "magento-hackathon/magento-composer-installer": "*"
+        "ext-curl": "*",
+        "jsiefer/mage-mock": "^0.3.0"
     },
     "require-dev": {
-        "ecomdev/ecomdev_phpunit": "*"
+        "phpunit/phpunit": "^4.0"
     },
     "extra": {
-        "magento-root-dir": "code/Aftersale"
+        "magento-root-dir": "."
     }
 }
