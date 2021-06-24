@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<config>
+    <tabs>
+        <notificationOrder translate="label" module="notificationOrder">
+            <label>Order Webhook</label>
+            <sort_order>1</sort_order>
+        </notificationOrder>
+    </tabs>
+    <sections>
+        <configs  translate="label" module="notificationOrder">
+           <label>Settings</label>
+            <tab>notificationOrder</tab>
+            <show_in_default>1</show_in_default>
+            <show_in_website>1</show_in_website>
+            <show_in_store>1</show_in_store>
+            <groups>
+                <webhook translate="label">
+                    <label>Webhook Settings</label>
+
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>1</show_in_website>
+                    <show_in_store>1</show_in_store>
+                    <expanded>1</expanded>
+                    <fields>
+                        <ecommerce_uuid>
+                            <label>Ecommerce UUID</label>
+                            <frontend_type>text</frontend_type>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </ecommerce_uuid>
+                        <url_webhook>
+                            <label>Url Webhook</label>
+                            <frontend_type>text</frontend_type>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </url_webhook>
+                        <email>
+                            <label>E-mail Notification</label>
+                            <frontend_type>text</frontend_type>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </email>
+                    </fields>
+                </webhook>
+            </groups>
+        </configs>
+    </sections>
+</config>
