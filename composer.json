@@ -1,0 +1,21 @@
+{
+    "name": "tiagobruno/notification-order-magento",
+    "description": "Notification order magento created or updated",
+    "version": "1.0.0",
+    "authors": [
+        {
+            "name": "Tiago Bruno",
+            "email": "tiago.bruno@after.sale"
+        }
+    ],
+    "require": {
+        "ext-curl": "*",
+        "jsiefer/mage-mock": "^0.3.0"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "^4.0"
+    },
+    "extra": {
+        "magento-root-dir": "."
+    }
+}
