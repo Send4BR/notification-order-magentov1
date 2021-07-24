@@ -1,0 +1,19 @@
+name: run-tests
+
+on:
+  push:
+    branches:
+      - master
+      - sprint
+      - staging
+  pull_request:
+    branches: [ master, sprint, staging]
+jobs:
+  tests:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v1
+      - name: Install Dependencies (PHP vendors)
+        run: composer install -q --no-ansi --no-interaction --no-scripts --no-suggest --no-progress --prefer-dist
+      - name: Execute tests (Unit and Feature tests) via PHPUnit
+        run: vendor/bin/phpunit
