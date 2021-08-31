@@ -26,6 +26,15 @@
                     </aftersale_notificationOrder>
                 </observers>
             </sales_order_save_after>
+            <sales_order_shipment_save_after>
+                <observers>
+                    <aftersale_notificationOrder>
+                        <class>aftersale_notificationOrder/orderObserver</class>
+                        <method>orderShipmentCreateOrUpdate</method>
+                        <type>singleton</type>
+                    </aftersale_notificationOrder>
+                </observers>
+            </sales_order_shipment_save_after>
         </events>
     </global>
 </config>
