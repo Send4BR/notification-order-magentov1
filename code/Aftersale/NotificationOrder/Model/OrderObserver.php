@@ -17,10 +17,21 @@ class Aftersale_NotificationOrder_Model_OrderObserver
     public function orderCreateOrUpdate($observer)
     {
         try {
+            $order = $observer->getOrder()->getData();
 
-            $content = $observer->getOrder()->getData();
+            $this->orderNotificationService->send($order);
+        } catch (\Exception $exception) {
+            Mage::log($exception->getMessage(), null, 'webhookError.log');
+            $this->orderNotificationService->dispatchEmail($exception->getMessage());
+        }
+    }
 
-            $this->orderNotificationService->send($content);
+    public function orderShipmentCreateOrUpdate($observer)
+    {
+        try {
+            $order = $observer->getEvent()->getShipment()->getOrder()->getData();
+
+            $this->orderNotificationService->send($order);
         } catch (\Exception $exception) {
             Mage::log($exception->getMessage(), null, 'webhookError.log');
             $this->orderNotificationService->dispatchEmail($exception->getMessage());
