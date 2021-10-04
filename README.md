@@ -15,7 +15,7 @@
 ```bash
 cd [magento root folder]
 modman init
-modman clone https://github.com/tiagobrunoBFR/notification-order-magento.git
+modman clone https://github.com/Send4BR/notification-order-magentov1.git
 ```
 - Flush Magento's cache
 
