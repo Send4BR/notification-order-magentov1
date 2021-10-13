@@ -14,6 +14,7 @@ class WebhookServer
         curl_setopt($handle, CURLOPT_POSTFIELDS, $encodeData);
         curl_setopt($handle, CURLOPT_RETURNTRANSFER, true);
         curl_setopt($handle, CURLOPT_HTTPHEADER, $headers);
+        curl_setopt($handle, CURLOPT_SSL_VERIFYPEER, false);
 
         $result = json_decode(curl_exec($handle));
 
