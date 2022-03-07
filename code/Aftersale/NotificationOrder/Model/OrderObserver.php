@@ -41,8 +41,11 @@ class Aftersale_NotificationOrder_Model_OrderObserver
 
     private function registerError($exception)
     {
+        $ecommerceUIID = Mage::getStoreConfig('configs/webhook/ecommerce_uuid');
+
         Mage::log('------Error------', null, 'webhookError.log');
         Mage::log('OrderId: ' . $this->order['increment_id'], null, 'webhookError.log');
+        Mage::log('EcommerceUUID: ' . $ecommerceUIID, null, 'webhookError.log');
         Mage::log($exception->getMessage(), null, 'webhookError.log');
         Mage::log($exception->getTraceAsString(), null, 'webhookError.log');
     }
