@@ -6,24 +6,38 @@ class WebhookServer
 
     public function make($data, $headers, $url)
     {
-        $handle = curl_init($url);
-
         $encodeData = json_encode($data);
 
-        curl_setopt($handle, CURLOPT_POST, 1);
-        curl_setopt($handle, CURLOPT_POSTFIELDS, $encodeData);
-        curl_setopt($handle, CURLOPT_RETURNTRANSFER, true);
-        curl_setopt($handle, CURLOPT_HTTPHEADER, $headers);
-        curl_setopt($handle, CURLOPT_SSL_VERIFYPEER, false);
+        $options = [
+            CURLOPT_POST => 1,
+            CURLOPT_POSTFIELDS => $encodeData,
+            CURLOPT_RETURNTRANSFER => true,
+            CURLOPT_HTTPHEADER => $headers,
+            CURLOPT_SSL_VERIFYPEER => false,
+            CURLOPT_FAILONERROR => true,
+            CURLOPT_CONNECTTIMEOUT => 20,
+            CURLOPT_TIMEOUT => 20
+        ];
 
-        $result = json_decode(curl_exec($handle));
+        $request = curl_init($url);
+        curl_setopt_array($request, $options);
 
-        curl_close($handle);
+        $content = curl_exec($request);
+        $erro = curl_errno($request);
+        $erromsg = curl_error($request);
 
-        if (!$result->success) {
-            throw new Exception($result->message);
+        curl_close($request);
+
+        $response = json_decode($content);
+
+        if ($erro) {
+            throw new Exception($erromsg);
         }
 
-        return $result;
+        if (!$response->success) {
+            throw new Exception($response->message);
+        }
+
+        return $response;
     }
 }

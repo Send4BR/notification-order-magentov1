@@ -5,8 +5,8 @@ require __DIR__ . "/../Services/WebhookServer.php";
 
 class Aftersale_NotificationOrder_Model_OrderObserver
 {
-
     private $orderNotificationService;
+    private $order;
 
     public function __construct()
     {
@@ -17,24 +17,36 @@ class Aftersale_NotificationOrder_Model_OrderObserver
     public function orderCreateOrUpdate($observer)
     {
         try {
-            $order = $observer->getOrder()->getData();
-
-            $this->orderNotificationService->send($order);
+            $this->order = $observer->getOrder()->getData();
+            $this->sendOrder($this->order);
         } catch (\Exception $exception) {
-            Mage::log($exception->getMessage(), null, 'webhookError.log');
-            $this->orderNotificationService->dispatchEmail($exception->getMessage());
+            $this->registerError($exception);
         }
     }
 
     public function orderShipmentCreateOrUpdate($observer)
     {
         try {
-            $order = $observer->getEvent()->getShipment()->getOrder()->getData();
-
-            $this->orderNotificationService->send($order);
+            $this->order = $observer->getEvent()->getShipment()->getOrder()->getData();
+            $this->sendOrder();
         } catch (\Exception $exception) {
-            Mage::log($exception->getMessage(), null, 'webhookError.log');
-            $this->orderNotificationService->dispatchEmail($exception->getMessage());
+            $this->registerError($exception);
         }
+    }
+
+    private function sendOrder()
+    {
+        $this->orderNotificationService->send($this->order);
+    }
+
+    private function registerError($exception)
+    {
+        $ecommerceUIID = Mage::getStoreConfig('configs/webhook/ecommerce_uuid');
+
+        Mage::log('------Error------', null, 'webhookError.log');
+        Mage::log('OrderId: ' . $this->order['increment_id'], null, 'webhookError.log');
+        Mage::log('EcommerceUUID: ' . $ecommerceUIID, null, 'webhookError.log');
+        Mage::log($exception->getMessage(), null, 'webhookError.log');
+        Mage::log($exception->getTraceAsString(), null, 'webhookError.log');
     }
 }
