@@ -1,8 +1,4 @@
 <?php
-
-require __DIR__ . "/SendEmail.php";
-
-
 class OrderNotification
 {
     private $webhookServer;
@@ -26,16 +22,6 @@ class OrderNotification
         $this->webhookServer->make($payload, $headers, $url);
 
         return true;
-    }
-
-    public function dispatchEmail($message)
-    {
-        $email = Mage::getStoreConfig('configs/webhook/email');
-
-        if (!empty($email)) {
-            $sendEmail = new SendEmail($message);
-            $sendEmail->make();
-        }
     }
 
     public function getHeader()
